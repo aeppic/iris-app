@@ -1,0 +1,19 @@
+{
+  "name": "iris-ba",
+  "version": "3.0.0",
+  "description": "Iris Business Applications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "iris",
+    "iris BA",
+    "forms"
+  ],
+  "publishConfig": {
+    "registry": "https://npm-sinopia.curasystems.com"
+  },
+  "author": "Matthias Goetzke",
+  "license": "SEE LICENSE IN license.md"
+}
