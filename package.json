@@ -1,6 +1,6 @@
 {
   "name": "iris-ba",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "description": "Iris Business Applications",
   "main": "index.js",
   "scripts": {
