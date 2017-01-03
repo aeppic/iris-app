@@ -17,7 +17,7 @@ we would like to know more about you. What is your name ?
 
 A definition like this would result in this:
 
-[Image](./images/screenshots/form-1.JPG)
+![Form 1](./images/screenshots/form-1.JPG)
 
 Rendering a form like this is easy and can be helpful standalone.
 
