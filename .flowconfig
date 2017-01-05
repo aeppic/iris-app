@@ -1,0 +1,13 @@
+[ignore]
+.*/node_modules/.*
+.*/test/.*
+.*/build/.*
+.*/examples/.*
+.*/benchmarks/.*
+
+[include]
+
+[libs]
+
+[options]
+module.name_mapper='^iris-es/\(.*\)$' -> '<PROJECT_ROOT>/\1'
