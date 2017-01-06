@@ -1,6 +1,5 @@
 const fs = require('fs')
 const path = require('path')
-const util = require('util')
 
 const zlib = require('zlib')
 const rollup = require('rollup')

@@ -9,8 +9,11 @@
  * 
  * See https://github.com/iris-ba/iris-ba/blob/master/LICENSE
  */
-var Iris = (function () {
-'use strict';
+(function (global, factory) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global.Iris = factory());
+}(this, (function () { 'use strict';
 
 var rsLayoutFactory = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.layoutComponentName,{tag:"component",attrs:{"params":_vm.params}})},staticRenderFns: [],
   // return {
@@ -52,13 +55,11 @@ var rsLayoutFactory = {render: function(){var _vm=this;var _h=_vm.$createElement
   // }
 };
 
-var Iris = function Iris(options){
-  console.log('yeah');
-};
-Iris.prototype._registerComponents = function _registerComponents (vue,deps){
+var Iris = function Iris () {};
+Iris._registerComponents = function _registerComponents (vue) {
   vue.component(rsLayoutFactory);
 };
 
 return Iris;
 
-}());
+})));

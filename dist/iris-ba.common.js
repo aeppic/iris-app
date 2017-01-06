@@ -51,10 +51,8 @@ var rsLayoutFactory = {render: function(){var _vm=this;var _h=_vm.$createElement
   // }
 };
 
-var Iris = function Iris(options){
-  console.log('yeah');
-};
-Iris.prototype._registerComponents = function _registerComponents (vue,deps){
+var Iris = function Iris () {};
+Iris._registerComponents = function _registerComponents (vue) {
   vue.component(rsLayoutFactory);
 };
 

@@ -28,7 +28,7 @@ const builds = {
   'web': {
     entry: path.resolve(__dirname, '../src/index.js'),
     dest: path.resolve(__dirname, '../dist/iris-ba.js'),
-    format: 'iife',
+    format: 'umd',
     env: 'development',
     external: [],
     sourceMap: true,
@@ -37,7 +37,7 @@ const builds = {
   'web-prod': {
     entry: path.resolve(__dirname, '../src/index.js'),
     dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
-    format: 'iife',
+    format: 'umd',
     env: 'production',
     external: [],
     sourceMap: true,

@@ -1,13 +1,13 @@
 import rsLayoutFactory from './components/rsLayout.vue'
 
 class Iris {
-  constructor(options){
-    console.log('yeah')
-  }
+  // constructor() {
+  //   //console.log('yeah')
+  // }
 
-  _registerComponents(vue,deps){
+  static _registerComponents(vue) {
     vue.component(rsLayoutFactory)
-  } 
+  }
 }
 
 export default Iris
