@@ -1,5 +1,7 @@
 const fs = require('fs')
 const path = require('path')
+const util = require('util')
+
 const zlib = require('zlib')
 const rollup = require('rollup')
 const uglify = require('uglify-js')
@@ -36,11 +38,21 @@ function build (builds) {
 }
 
 function buildEntry (config) {
+  
   const isProd = /min\.js$/.test(config.dest)
+
   return rollup.rollup(config).then(bundle => {
-    const code = bundle.generate(config).code
+
+    const result = bundle.generate(config)
+    var ops = [];
+
+    var code = result.code
+
     if (isProd) {
-      var minified = (config.banner ? config.banner + '\n' : '') + uglify.minify(code, {
+
+      // var code = (config.banner ? config.banner + '\n' : '') +  minifiedResult.code
+
+      var minifiedResult = uglify.minify(code, {
         fromString: true,
         output: {
           screw_ie8: true,
@@ -48,11 +60,32 @@ function buildEntry (config) {
         },
         compress: {
           pure_funcs: ['makeMap']
-        }
-      }).code
-      return write(config.dest, minified, true)
+        },
+        sourceRoot: 'iris-ba',
+        inSourceMap: JSON.parse( result.map.toString() ),
+        outSourceMap: path.basename( config.dest ) + '.map'
+      })
+
+      var minified = minifiedResult.code // (config.banner ? config.banner + '\n' : '') +  minifiedResult.code
+
+    // var code = (config.banner ? config.banner + '\n' : '') + result.code
+
+      if(config.sourceMap){
+        ops.push( write(config.dest + '.map', minifiedResult.map ) )
+      }
+      ops.push( write(config.dest, minified, true) )
+
+      return Promise.all(ops)
     } else {
-      return write(config.dest, code)
+
+      if(config.sourceMap){
+        result.code += '\n//# sourceMappingURL=' + path.basename(config.dest) + '.map'
+        ops.push( write(config.dest + '.map', result.map.toString() ) )
+      }
+      
+      ops.push( write(config.dest, code) )
+    
+      return Promise.all(ops)
     }
   })
 }

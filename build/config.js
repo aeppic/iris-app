@@ -3,6 +3,7 @@ const flow = require('rollup-plugin-flow-no-whitespace')
 const buble = require('rollup-plugin-buble')
 const replace = require('rollup-plugin-replace')
 const alias = require('rollup-plugin-alias')
+const cleanup = require('rollup-plugin-cleanup')
 const vue = require('rollup-plugin-vue')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
@@ -11,26 +12,54 @@ const version = process.env.VERSION || require('../package.json').version
 
 const banner =
   '/*!\n' +
-  ' * iris-ba.js v' + version + '\n' +
+  ' * iris-ba v' + version + '\n' +
   ' * (c) 2016-' + new Date().getFullYear() + ' curasystems GmbH\n' +
-  ' * Commercial License..\n' +
+  ' * Commercial License. \n' +
+  ' * \n' +
+  ' * This library must only be used within the context of code \n' +
+  ' * demonstrations (JSFiddle, etc) or with express written consent\n' +
+  ' * by curasystems GmbH.\n' +
+  ' * \n' +
+  ' * See https://github.com/iris-ba/iris-ba/blob/master/LICENSE\n' +
   ' */'
 
 const builds = {
   // Main build CommonJS build (CommonJS)
-  'web-full-cjs': {
+  'web': {
     entry: path.resolve(__dirname, '../src/index.js'),
     dest: path.resolve(__dirname, '../dist/iris-ba.js'),
+    format: 'iife',
+    env: 'development',
+    external: [],
+    sourceMap: true,
+    banner
+  },
+  'web-prod': {
+    entry: path.resolve(__dirname, '../src/index.js'),
+    dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
+    format: 'iife',
+    env: 'production',
+    external: [],
+    sourceMap: true,
+    banner
+  },
+  // Main build CommonJS build (CommonJS)
+  'web-full-cjs': {
+    entry: path.resolve(__dirname, '../src/index.js'),
+    dest: path.resolve(__dirname, '../dist/iris-ba.common.js'),
     format: 'cjs',
     env: 'development',
-    alias: { he: './entity-decoder' },
+    external: [],
+    sourceMap: true,
     banner
   },
   'web-full-cjs-prod': {
     entry: path.resolve(__dirname, '../src/index.js'),
-    dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
+    dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
     format: 'cjs',
     env: 'production',
+    external: [],
+    sourceMap: true,
     banner
   },
 }
@@ -42,14 +71,16 @@ function genConfig (opts) {
     external: opts.external,
     format: opts.format,
     banner: opts.banner,
-    moduleName: 'Vue',
+    sourceMap: opts.sourceMap,
+    moduleName: 'Iris',
     plugins: [
-      nodeResolve({ jsnext: true, main: true }),
       // commonjs({ include: 'node_modules/**' }),
+      alias(Object.assign({}, require('./alias'), opts.alias)),
+      nodeResolve({ jsnext: true, main: true }),
       vue(),
-      flow(),
+      // flow(),
       buble(),
-      alias(Object.assign({}, require('./alias'), opts.alias))
+      cleanup()
     ]
   }
 
