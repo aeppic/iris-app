@@ -30,16 +30,14 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.js'),
     format: 'umd',
     env: 'development',
-    external: [],
     sourceMap: true,
-    banner
+    banner,
   },
   'web-prod': {
     entry: path.resolve(__dirname, '../src/index.js'),
     dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
     format: 'umd',
     env: 'production',
-    external: [],
     sourceMap: true,
     banner
   },
@@ -49,7 +47,6 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.common.js'),
     format: 'cjs',
     env: 'development',
-    external: [],
     sourceMap: true,
     banner
   },
@@ -58,27 +55,27 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
     format: 'cjs',
     env: 'production',
-    external: [],
     sourceMap: true,
     banner
   },
 }
 
 function genConfig (opts) {
+  
   const config = {
     entry: opts.entry,
     dest: opts.dest,
-    external: opts.external,
+    external:  opts.external,
     format: opts.format,
     banner: opts.banner,
     sourceMap: opts.sourceMap,
     moduleName: 'Iris',
     plugins: [
-      // commonjs({ include: 'node_modules/**' }),
+      commonjs({ include: 'node_modules/**' }),
       alias(Object.assign({}, require('./alias'), opts.alias)),
       nodeResolve({ jsnext: true, main: true }),
       vue(),
-      // flow(),
+      flow(),
       buble(),
       cleanup()
     ]
@@ -86,6 +83,7 @@ function genConfig (opts) {
 
   if (opts.env) {
     config.plugins.push(replace({
+      'IRIS_BA_VERSION': '"'+version+'"',
       'process.env.NODE_ENV': JSON.stringify(opts.env)
     }))
   }

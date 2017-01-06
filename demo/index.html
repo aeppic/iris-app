@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>IRIS BA - JSFiddle Test</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="theme-color" content="#3498db">
+    <link rel="preload" href="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated" as="script">
+    <link rel="preload" href="iris-ba.min.js" as="script">
+  </head>
+  <body>
+    <div id="iris">
+
+      {{version}}
+    </div>
+
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated"></script>
+    <script src="iris-ba.min.js"></script>
+    <script>
+      new Iris({
+        el: '#iris'
+      })
+    </script>
+  </body>
+</html>
