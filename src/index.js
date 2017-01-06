@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 
-import { App } from './core'
+import App from './core/app.vue'
 import rsLayoutFactory from './components/rsLayout.vue'
 
 

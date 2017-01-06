@@ -4753,11 +4753,12 @@ setTimeout(function () {
 }, 0);
 var vue_runtime_common = Vue$2;
 
-var App = {
-  template: '<h1>HELLO WORLD</h1>',
-  data: {
-    version: "3.0.3"
-  },
+var App = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"iris-ba"},[_c('h1',[_vm._v("Hello World !")])])}],
+  data: function data() {
+    return {
+      version: "3.0.3",
+    }
+  }
 };
 
 var rsLayoutFactory = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.layoutComponentName,{tag:"component",attrs:{"params":_vm.params}})},staticRenderFns: [],
