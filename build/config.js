@@ -76,7 +76,9 @@ function genConfig (opts) {
       nodeResolve({ jsnext: true, main: true }),
       vue(),
       flow(),
-      buble(),
+      buble({
+        transforms: { dangerousForOf: true }
+      }),
       cleanup()
     ]
   }

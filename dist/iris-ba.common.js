@@ -4753,65 +4753,69 @@ setTimeout(function () {
 }, 0);
 var vue_runtime_common = Vue$2;
 
-var App = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _vm._m(0)},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"iris-ba"},[_c('h1',[_vm._v("Hello World !")])])}],
+var App = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"iris-ba"}},[_c('h1',[_vm._v("Hello World ! "+_vm._s(_vm.version))]),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.componentName),expression:"componentName"}],attrs:{"type":"text"},domProps:{"value":_vm._s(_vm.componentName)},on:{"input":function($event){if($event.target.composing){ return; }_vm.componentName=$event.target.value;}}}),_c(_vm.componentName,{tag:"component"}),_vm._v("I:"+_vm._s(_vm.iris)),_c('br'),_vm._v("S:"+_vm._s(_vm.state)),_c('br'),_vm._v("LS:"+_vm._s(_vm.localstate))],1)])},staticRenderFns: [],
   data: function data() {
     return {
       version: "3.0.3",
+      componentName: '',
+      localstate: this.state
     }
-  }
-};
-
-var rsLayoutFactory = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c(_vm.layoutComponentName,{tag:"component",attrs:{"params":_vm.params}})},staticRenderFns: [],
-  // return {
-  //   name: 'rsGet',
-  //   props: {
-  //     "layoutId": {
-  //       type: String,
-  //       default: null,
-  //       validator: function(value) {
-  //         if (!value || value.length === 0 || value.trim().length === 0)
-  //           return false
-
-  //         return DOCUMENT_ID_REGEX.test(value.trim())
-  //       }
-  //     },
-  //     "params": {
-  //       type: Object,
-  //       required: false
-  //     }
-  //   },
-  //   data: function() {
-  //     return {
-  //       layoutComponentName: null
-  //     }
-  //   },
-  //   methods: {
-  //   },
-  //   watch: {
-  //     layoutId: function(){
-  //       // this.load()
-  //     }
-  //   },
-  //   created() {
-  //     this.load()
-  //   },
-  //   beforeMount() {
-  //     this.layoutComponentName = lookup(this.layoutId)
-  //   }
+  },
+  // computed: {
+  //   iris(){}
   // }
 };
 
+function registerControls(state, controls, vue) {
+  for(var i = 0, list = controls; i < list.length; i += 1){
+    var control = list[i];
+    var document = control.__document;
+    var name = "rs-control_" + (document.id) + "_" + (document.v) + "_0";
+    vue.component(name, control);
+    registerControl(state,document,name);
+  }
+}
+function registerControl(state,document,componentName) {
+  var ns = state.controls[document.data.namespace];
+  if (!ns)
+    { ns = state.controls[document.data.namespace] = {}; }
+  ns[document.data.name] = componentName;
+}
+
+var State = function State(){
+  this.controls = {};
+};
+State.prototype.registerComponents = function registerComponents (components, vue){
+  registerControls(this, components.controls, vue);
+};
+
 var Iris = function Iris(options) {
+  this._rootId = 'iris-ba';
   this._options = options;
+  var state = this._state = new State();
   this._pageApp = new vue_runtime_common(vue_runtime_common.util.extend({
+    state: state,
+    computed: {
+      iris: function iris() { return state }
+    }
   }, App));
+  if (options.components)
+    { this._state.registerComponents(options.components, vue_runtime_common); }
   if (this._options.el) {
     this._rootElement = document.querySelector(this._options.el);
     this._pageApp.$mount(this._rootElement);
   }
 };
+var prototypeAccessors = { $vuePageApp: {} };
 Iris._registerComponents = function _registerComponents (vue) {
   vue.component(rsLayoutFactory);
 };
+Iris.prototype.mount = function mount (){
+  return this._pageApp.$mount('#iris-ba')
+};
+prototypeAccessors.$vuePageApp.get = function () {
+  return this._pageApp;
+};
+Object.defineProperties( Iris.prototype, prototypeAccessors );
 
 module.exports = Iris;
