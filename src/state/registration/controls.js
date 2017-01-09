@@ -10,10 +10,15 @@ export default function registerControls(state, controls, vue) {
 }
 
 function registerControl(state,document,componentName) {
-  let ns = state.controls[document.data.namespace]
+  let controlNamespace = document.data.namespace || ''
+  
+  if (document.data.namespace.trim() === '')
+    controlNamespace = '__default'
+
+  let ns = state.controls[controlNamespace]
 
   if (!ns)  
-    ns = state.controls[document.data.namespace] = {}
+    ns = state.controls[controlNamespace] = {}
 
   ns[document.data.name] = componentName
 }

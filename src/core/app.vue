@@ -3,7 +3,10 @@
     <h1>Hello World ! {{version}}</h1>
     <div>
       <input type="text" v-model="componentName">
-      <component :is="componentName"></component>
+      <hr>
+      <h2>{{componentName}}</h2>
+      <component :is="componentNameToUse"></component>
+      <hr>
       I:{{iris}}<br>
       S:{{state}}<br>
       LS:{{localstate}}
@@ -16,13 +19,20 @@
     data() {
       return {
         version: IRIS_BA_VERSION,
-        componentName: '',
+        componentName: 'rs-control_abc_1_0',
         localstate: this.state
       }
     },
-    // computed: {
-    //   iris(){}
-    // }
+    computed: {
+      componentNameToUse(){
+        var regEx = /^[A-Za-z0-9_\-]+$/
+
+        if ( regEx.test(this.componentName) )
+          return this.componentName
+        else
+          return ''
+      }
+    }
   }
 </script>
 

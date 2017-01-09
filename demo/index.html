@@ -11,7 +11,6 @@
   </head>
   <body>
     <div id="iris">
-
       {{version}}
     </div>
 
@@ -19,7 +18,20 @@
     <script src="iris-ba.min.js"></script>
     <script>
       new Iris({
-        el: '#iris'
+        el: '#iris',
+        components: {
+          controls:[
+              {
+                __document: {
+                  id: 'abc',
+                  v: 1,
+                  f: { id:'control', v:1 },
+                  data: { namespace:'', name: 'text' }
+                },
+                template: '<strong>TEXT CONTROL</strong>'
+              }
+          ]
+        }
       })
     </script>
   </body>

@@ -9,15 +9,18 @@ class Iris {
     this._rootId = 'iris-ba'
     this._options = options
 
-    var state = this._state = new State()
+    const state = this._state = new State()
+
+    const irisCommonComponentMixin = {
+      computed: {
+        iris() { return state }
+      }
+    }
 
     this._pageApp = new Vue(Vue.util.extend({
       // state,
       // router,
-      // store,
-      computed: {
-        iris() { return state }
-      }
+      mixins: [irisCommonComponentMixin]
     }, App))
 
     if (options.components)
