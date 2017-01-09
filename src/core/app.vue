@@ -4,7 +4,7 @@
     <div>
       <input type="text" v-model="componentName">
       <component :is="componentName"></component>
-      I:{{iris}}  <br>
+      I:{{iris}}<br>
       S:{{state}}<br>
       LS:{{localstate}}
     </div>

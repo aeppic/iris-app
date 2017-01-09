@@ -4794,7 +4794,6 @@ var Iris = function Iris(options) {
   this._options = options;
   var state = this._state = new State();
   this._pageApp = new vue_runtime_common(vue_runtime_common.util.extend({
-    state: state,
     computed: {
       iris: function iris() { return state }
     }
