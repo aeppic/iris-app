@@ -2,7 +2,9 @@
   "name": "iris-ba",
   "version": "3.0.3",
   "description": "Iris Business Applications",
-  "main": "dist/iris-ba.js",
+  "main": "dist/iris-ba.common.js",
+  "browser": "dist/iris-ba.js",
+  "jsmain": "dist/iris-ba.js",
   "scripts": {
     "dev": "node demo/server",
     "build": "rimraf dist && node build/build.js",
@@ -42,6 +44,7 @@
     "express": "^4.14.0",
     "file-loader": "^0.9.0",
     "flow-bin": "^0.37.4",
+    "jsdom": "^9.9.1",
     "rimraf": "^2.5.4",
     "rollup": "^0.40.0",
     "rollup-plugin-alias": "^1.2.0",
@@ -54,10 +57,13 @@
     "rollup-plugin-replace": "^1.1.0",
     "rollup-plugin-vue": "^2.2.14",
     "rollup-watch": "^2.5.0",
+    "stream-to-string": "^1.1.0",
+    "string-to-stream": "^1.1.0",
     "url-loader": "^0.5.7",
     "vue": "^2.1.8",
     "vue-loader": "^10.0.2",
     "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.1.8"
+    "vue-template-compiler": "^2.1.8",
+    "zepto": "^1.2.0"
   }
 }

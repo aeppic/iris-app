@@ -1,3 +1,6 @@
+global.window = {}
+global.document = {}
+
 import Vue from 'vue'
 import Root from './root.vue'
 
@@ -5,6 +8,8 @@ import Store from './store'
 
 import registerControls from './registration/controls'
 import registerForms from './registration/forms'
+
+import rewriteTemplate from './templating/rewrite'
 
 class Iris {
 
@@ -18,13 +23,17 @@ class Iris {
     this._options = options
     this._store = options.store || new Store()
     
-    const ui = (options.components || options.el || options.ui)
-
     exposePropertiesFromObject(this, this._store, 'get,getHistoricDocument,watch,search,subscribe,query')
+
+    const ui = (options.components || options.el || options.ui)
 
     if (ui) {
       initUI(this)
     }
+  }
+
+  rewriteTemplate(...args){
+    return rewriteTemplate(...args)
   }
 
   mount() {
@@ -80,8 +89,18 @@ function initUI(iris) {
 }
 
 function registerComponents(iris, components, vue) {
-  registerControls(iris, components.controls, vue)
-  registerForms(iris, components.forms, vue)
+  
+  if (!components) {
+    return
+  }
+
+  if (components.controls) {
+    registerControls(iris, components.controls, vue)
+  }
+
+  if (components.forms) {
+    registerForms(iris, components.forms, vue)
+  }
 }
 /* eslint-enable  */
 

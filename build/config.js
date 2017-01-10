@@ -57,7 +57,7 @@ const builds = {
     env: 'production',
     sourceMap: true,
     banner
-  },
+  }
 }
 
 function genConfig (opts) {
@@ -73,7 +73,7 @@ function genConfig (opts) {
     plugins: [
       commonjs({ include: 'node_modules/**' }),
       alias(Object.assign({}, require('./alias'), opts.alias)),
-      nodeResolve({ jsnext: true, main: true }),
+      nodeResolve({ jsnext: true, main: true, browser:true }),
       vue(),
       flow(),
       buble({
