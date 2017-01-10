@@ -6791,13 +6791,13 @@ var Iris = function Iris(options) {
   this._rootId = 'iris-ba';
   this._options = options;
   var state = this._state = new State();
-  var commonComponentMixin = {
+  var irisCommonComponentMixin = {
     computed: {
       iris: function iris() { return state }
     }
   };
   this._pageApp = new vue_common(vue_common.util.extend({
-    mixins: [commonComponentMixin]
+    mixins: [irisCommonComponentMixin]
   }, App));
   if (options.components)
     { this._state.registerComponents(options.components, vue_common); }

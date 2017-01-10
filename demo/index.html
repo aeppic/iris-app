@@ -23,12 +23,21 @@
           controls:[
               {
                 __document: {
-                  id: 'abc',
+                  id: 'one',
                   v: 1,
                   f: { id:'control', v:1 },
                   data: { namespace:'', name: 'text' }
                 },
                 template: '<strong>TEXT CONTROL</strong>'
+              },
+              {
+                __document: {
+                  id: 'other',
+                  v: 1,
+                  f: { id:'control', v:1 },
+                  data: { namespace:'app', name: 'text' }
+                },
+                template: '<strong>OTHER TEXT CONTROL</strong>'
               }
           ]
         }
