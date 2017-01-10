@@ -7,9 +7,7 @@
       <h2>{{componentName}}</h2>
       <component :is="componentNameToUse"></component>
       <hr>
-      I:{{iris}}<br>
-      S:{{state}}<br>
-      LS:{{localstate}}
+      I:{{iris.version}}<br>
     </div>
   </div>
 </template>
@@ -20,7 +18,6 @@
       return {
         version: IRIS_BA_VERSION,
         componentName: 'rs-control_abc_1_0',
-        localstate: this.state
       }
     },
     computed: {

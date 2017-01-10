@@ -6741,12 +6741,11 @@ function getOuterHTML (el) {
 Vue$3.compile = compileToFunctions;
 var vue_common = Vue$3;
 
-var App = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"iris-ba"}},[_c('h1',[_vm._v("Hello World ! "+_vm._s(_vm.version))]),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.componentName),expression:"componentName"}],attrs:{"type":"text"},domProps:{"value":_vm._s(_vm.componentName)},on:{"input":function($event){if($event.target.composing){ return; }_vm.componentName=$event.target.value;}}}),_c('hr'),_c('h2',[_vm._v(_vm._s(_vm.componentName))]),_c(_vm.componentNameToUse,{tag:"component"}),_c('hr'),_vm._v("I:"+_vm._s(_vm.iris)),_c('br'),_vm._v("S:"+_vm._s(_vm.state)),_c('br'),_vm._v("LS:"+_vm._s(_vm.localstate))],1)])},staticRenderFns: [],
+var Root = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"iris-ba"}},[_c('h1',[_vm._v("Hello World ! "+_vm._s(_vm.version))]),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.componentName),expression:"componentName"}],attrs:{"type":"text"},domProps:{"value":_vm._s(_vm.componentName)},on:{"input":function($event){if($event.target.composing){ return; }_vm.componentName=$event.target.value;}}}),_c('hr'),_c('h2',[_vm._v(_vm._s(_vm.componentName))]),_c(_vm.componentNameToUse,{tag:"component"}),_c('hr'),_vm._v("I:"+_vm._s(_vm.iris.version)),_c('br')],1)])},staticRenderFns: [],
   data: function data() {
     return {
       version: "3.0.3",
       componentName: 'rs-control_abc_1_0',
-      localstate: this.state
     }
   },
   computed: {
@@ -6761,61 +6760,114 @@ var App = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm.
   }
 };
 
+var Store = function Store () {};
+Store.prototype.search = function search (stringOrQuery, options) {
+  console.log('searching', stringOrQuery, options);
+};
+Store.prototype.subscribe = function subscribe (stringOrQuery, options) {
+  console.log('searching', stringOrQuery, options);
+};
+Store.prototype.get = function get (documentIdOrReference) {
+  return Promise.resolve({ a: documentIdOrReference, t: this })
+};
+Store.prototype.watch = function watch (documentIdOrReference) {
+  return Promise.resolve({ a: documentIdOrReference, t: this })
+};
+
 function registerControls(state, controls, vue) {
-  for(var i = 0, list = controls; i < list.length; i += 1){
+  for (var i = 0, list = controls; i < list.length; i += 1){
     var control = list[i];
     var document = control.__document;
     var name = "rs-control_" + (document.id) + "_" + (document.v) + "_0";
     vue.component(name, control);
-    registerControl(state,document,name);
+    registerControl(state, document, name);
   }
 }
-function registerControl(state,document,componentName) {
+function registerControl(state, document, componentName) {
   var controlNamespace = document.data.namespace || '';
-  if (document.data.namespace.trim() === '')
-    { controlNamespace = '__default'; }
+  if (document.data.namespace.trim() === '') {
+    controlNamespace = '__default';
+  }
   var ns = state.controls[controlNamespace];
-  if (!ns)
-    { ns = state.controls[controlNamespace] = {}; }
+  if (!ns) {
+    ns = state.controls[controlNamespace] = {};
+  }
   ns[document.data.name] = componentName;
 }
 
-var State = function State(){
-  this.controls = {};
-};
-State.prototype.registerComponents = function registerComponents (components, vue){
-  registerControls(this, components.controls, vue);
-};
+function registerForms(state, formComponents, vue) {
+  for (var i = 0, list = formComponents; i < list.length; i += 1) {
+    var formComponent = list[i];
+    var document = formComponent.__document;
+    var name = "rs-form_" + (document.id) + "_" + (document.v) + "_0";
+    vue.component(name, formComponent);
+    registerForm(state, document, name);
+  }
+}
+function registerForm(state, document) {
+  var formId = document.id;
+  var formVersions = state.forms[formId];
+  if (!formVersions) {
+    formVersions = state.forms[formId] = {};
+  }
+  formVersions[document.v] = document;
+}
 
 var Iris = function Iris(options) {
-  this._rootId = 'iris-ba';
+  this.version = "3.0.3";
+  this.controls = {};
+  this.forms = {};
   this._options = options;
-  var state = this._state = new State();
-  var irisCommonComponentMixin = {
-    computed: {
-      iris: function iris() { return state }
-    }
-  };
-  this._pageApp = new vue_common(vue_common.util.extend({
-    mixins: [irisCommonComponentMixin]
-  }, App));
-  if (options.components)
-    { this._state.registerComponents(options.components, vue_common); }
-  if (this._options.el) {
-    this._rootElement = document.querySelector(this._options.el);
-    this._pageApp.$mount(this._rootElement);
+  this._store = options.store || new Store();
+  var ui = (options.components || options.el || options.ui);
+  exposePropertiesFromObject(this, this._store, 'get,getHistoricDocument,watch,search,subscribe,query');
+  if (ui) {
+    initUI(this);
   }
 };
 var prototypeAccessors = { $vuePageApp: {} };
-Iris._registerComponents = function _registerComponents (vue) {
-  vue.component(rsLayoutFactory);
-};
-Iris.prototype.mount = function mount (){
-  return this._pageApp.$mount('#iris-ba')
+Iris.prototype.mount = function mount () {
+  if (!this._rootComponent)
+    { throw new Error('UI is not initialized. Run constructor with appropriate arguments') }
+  return this._rootComponent.$mount(("#" + (this._rootId)))
 };
 prototypeAccessors.$vuePageApp.get = function () {
-  return this._pageApp;
+  return this._rootComponent
 };
 Object.defineProperties( Iris.prototype, prototypeAccessors );
+function exposePropertiesFromObject(iris, object, properties) {
+  var propertyNames = properties.split(',');
+  var loop = function () {
+    var propertyName = list[i];
+    Object.defineProperty(iris, propertyName, {
+      get: function getter() {
+        return object[propertyName]
+      }
+    });
+  };
+  for (var i = 0, list = propertyNames; i < list.length; i += 1) loop();
+}
+function initUI(iris) {
+  iris._rootId = 'iris-ba';
+  var irisCommonComponentMixin = {
+    computed: {
+      iris: function iris$1() { return iris },
+    },
+  };
+  iris._rootComponent = new vue_common(vue_common.util.extend({
+    mixins: [irisCommonComponentMixin],
+  }, Root));
+  if (iris._options.components) {
+    registerComponents(iris, iris._options.components, vue_common);
+  }
+  if (iris._options.el) {
+    iris._rootElement = document.querySelector(iris._options.el);
+    iris._rootComponent.$mount(iris._rootElement);
+  }
+}
+function registerComponents(iris, components, vue) {
+  registerControls(iris, components.controls, vue);
+  registerForms(iris, components.forms, vue);
+}
 
 module.exports = Iris;

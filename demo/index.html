@@ -17,8 +17,8 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated"></script>
     <script src="iris-ba.min.js"></script>
     <script>
-      new Iris({
-        el: '#iris',
+      var iris = new Iris({
+        // el: '#iris',
         components: {
           controls:[
               {
@@ -28,7 +28,7 @@
                   f: { id:'control', v:1 },
                   data: { namespace:'', name: 'text' }
                 },
-                template: '<strong>TEXT CONTROL</strong>'
+                template: `<div class="rs-control"><input type="text" placeholder="{{params.placeholder||''}}" v-model="field"></div>`
               },
               {
                 __document: {
@@ -39,9 +39,22 @@
                 },
                 template: '<strong>OTHER TEXT CONTROL</strong>'
               }
+          ],
+          forms: [
+            {
+              __document: {
+                id: 'form1',
+                v: 1,
+                f: { id:'form', v:1 },
+                data: { definition: `# FORM\n[Name][name]` }
+              },
+              template: `<h1>FORM</h1><rs-control name="text" :document="document" :field="document.data.somefield" __fieldMeta="form.meta.fields.somefield" :params="{ background:'red',placeholder:'Enter some text...' }"></rs-control>`
+            }
           ]
         }
       })
+
+      iris.search('test')
     </script>
   </body>
 </html>

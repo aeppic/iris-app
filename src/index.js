@@ -1,48 +1,88 @@
 import Vue from 'vue'
-import App from './core/app.vue'
+import Root from './root.vue'
 
-import State from './state'
+import Store from './store'
+
+import registerControls from './registration/controls'
+import registerForms from './registration/forms'
 
 class Iris {
 
   constructor(options) {
-    this._rootId = 'iris-ba'
+  
+    this.version = IRIS_BA_VERSION
+
+    this.controls = {}
+    this.forms = {}
+
     this._options = options
+    this._store = options.store || new Store()
+    
+    const ui = (options.components || options.el || options.ui)
 
-    const state = this._state = new State()
+    exposePropertiesFromObject(this, this._store, 'get,getHistoricDocument,watch,search,subscribe,query')
 
-    const irisCommonComponentMixin = {
-      computed: {
-        iris() { return state }
-      }
-    }
-
-    this._pageApp = new Vue(Vue.util.extend({
-      // state,
-      // router,
-      mixins: [irisCommonComponentMixin]
-    }, App))
-
-    if (options.components)
-      this._state.registerComponents(options.components, Vue)
-
-    if (this._options.el) {
-      this._rootElement = document.querySelector(this._options.el)
-      this._pageApp.$mount(this._rootElement)
+    if (ui) {
+      initUI(this)
     }
   }
 
-  static _registerComponents(vue) {
-    vue.component(rsLayoutFactory)
-  }
+  mount() {
+    if (!this._rootComponent)
+      throw new Error('UI is not initialized. Run constructor with appropriate arguments')
 
-  mount(){
-    return this._pageApp.$mount('#iris-ba')
+    return this._rootComponent.$mount(`#${this._rootId}`)
   }
 
   get $vuePageApp() {
-    return this._pageApp;
+    return this._rootComponent
+  }
+
+}
+
+/* eslint-disable no-param-reassign  */
+function exposePropertiesFromObject(iris, object, properties) {
+  const propertyNames = properties.split(',')
+
+  for (const propertyName of propertyNames) {
+    Object.defineProperty(iris, propertyName, {
+      get: function getter() {
+        return object[propertyName]
+      }
+    })
   }
 }
- 
+
+function initUI(iris) {
+
+  iris._rootId = 'iris-ba'
+
+  const irisCommonComponentMixin = {
+    computed: {
+      iris() { return iris },
+    },
+  }
+
+  iris._rootComponent = new Vue(Vue.util.extend({
+    // state,
+    // router,
+    mixins: [irisCommonComponentMixin],
+  }, Root))
+
+  if (iris._options.components) {
+    registerComponents(iris, iris._options.components, Vue)
+  }
+
+  if (iris._options.el) {
+    iris._rootElement = document.querySelector(iris._options.el)
+    iris._rootComponent.$mount(iris._rootElement)
+  }
+}
+
+function registerComponents(iris, components, vue) {
+  registerControls(iris, components.controls, vue)
+  registerForms(iris, components.forms, vue)
+}
+/* eslint-enable  */
+
 export default Iris

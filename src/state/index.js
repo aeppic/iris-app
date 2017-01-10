@@ -1,13 +1,13 @@
-import registerControls from './registration/controls'
 
 class State {
-  constructor(){
+
+  constructor(options) {
+    this._options = options
+
+    this.forms = {}
     this.controls = {}
   }
 
-  registerComponents(components, vue){
-    registerControls(this, components.controls, vue)
-  }
 }
 
 export default State 
