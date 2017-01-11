@@ -16,6 +16,6 @@ app.get('/iris-ba.js', (res,req)=>{
 app.use(express.static( __dirname ))
 app.use(express.static( path.resolve(__dirname, '../dist') ))
 
-app.listen(8080, '0.0.0.0', ()=>{
-  console.log('listening on port 8080')
+app.listen(9090, '0.0.0.0', ()=>{
+  console.log('listening on port 9090')
 })

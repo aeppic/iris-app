@@ -29,7 +29,7 @@ class Iris {
     }
   }
 
-  rewriteTemplate(...args){
+  static rewriteTemplate(...args){
     return rewriteTemplate(...args)
   }
 

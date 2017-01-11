@@ -11,12 +11,14 @@ module.exports = {
         "import/no-extraneous-dependencies": [0],
         "import/prefer-default-export": [1],
         "no-restricted-syntax": [0],
-        "no-comma-dangle": [1],
-        "comma-dangle": [0]
+        "comma-dangle": [1],
+        "global-require": [0],
     },
     "globals": {
         "document": true,
         "window": true,
-        "IRIS_BA_VERSION": true
+        "IRIS_BA_VERSION": true,
+        "NO_DOM": true,
+        "$": true
     }
 };

@@ -8103,6 +8103,7 @@ window.$ === undefined && (window.$ = Zepto)
   return Zepto
 }));
 
+var $ = window.Zepto;
 function rewriteTemplate(template){
   var templateNode = document.createElement('div');
   templateNode.innerHTML = template;
@@ -8112,7 +8113,7 @@ function rewriteTemplate(template){
 }
 function injectScopedTemplateForAs(templateNode){
   var asNodes = $('*[as]', templateNode);
-  asNodes.each( function (index,asNode){
+  asNodes.each(function (index, asNode) {
     var node = $(asNode);
     var as = node.attr('as');
     asNode.innerHTML = "<template scope='" + as + "'>" + (asNode.innerHTML) + "</template>";
@@ -8121,39 +8122,40 @@ function injectScopedTemplateForAs(templateNode){
 function renameRSAttributes(templateNode){
   var nodes = $('*', templateNode);
   var renames = [];
-  for(var i = 0, list = nodes; i < list.length; i += 1) {
+  for (var i = 0, list = nodes; i < list.length; i += 1) {
     var node = list[i];
-    for(var i$1 = 0, list$1 = node.attributes; i$1 < list$1.length; i$1 += 1) {
+    for (var i$1 = 0, list$1 = node.attributes; i$1 < list$1.length; i$1 += 1) {
       var attr = list$1[i$1];
-      if( isSpecificRsDirective(attr, 'rs-on rs-bind: rs-model'.split(' ')) ) {
-        renames.push( [node,rewriteRs(attr)] );
-      } else if( isRsAttribute(attr) ) {
-        renames.push( [node,prefixWithAdditionalV(attr)] );
+      if (isSpecificRsDirective(attr, 'rs-on rs-bind: rs-model'.split(' '))) {
+        renames.push([node, rewriteRs(attr)]);
+      } else if ( isRsAttribute(attr) ) {
+        renames.push([node, prefixWithAdditionalV(attr)]);
       }
     }
   }
-  for(var i$2 = 0, list$2 = renames; i$2 < list$2.length; i$2 += 1){
+  for (var i$2 = 0, list$2 = renames; i$2 < list$2.length; i$2 += 1){
     var rename = list$2[i$2];
     var node$1 = rename[0];
     var op = rename[1];
     var n = $(node$1);
-    n.attr( op.new, op.attr.value );
-    n.attr( op.attr.name, null );
+    n.attr(op.new, op.attr.value);
+    n.attr(op.attr.name, null);
   }
 }
-function isSpecificRsDirective(attr,names) {
+function isSpecificRsDirective(attr, names) {
   var name = attr.name.toLowerCase();
-  for( var i = 0, list = names; i < list.length; i += 1 ){
+  for (var i = 0, list = names; i < list.length; i += 1) {
     var n = list[i];
-    if(name.indexOf(n) === 0)
-      { return true }
+    if (name.indexOf(n) === 0) {
+      return true
+    }
   }
   return false
 }
 function rewriteRs(attr) {
   var suffix = attr.name.slice(3);
   var newName = "v-" + suffix;
-  return { new:newName, attr: attr }
+  return { new: newName, attr: attr }
 }
 function isRsAttribute(attr) {
   var name = attr.name.toLowerCase();
@@ -8161,7 +8163,7 @@ function isRsAttribute(attr) {
 }
 function prefixWithAdditionalV(attr){
   var newName = "v-" + (attr.name);
-  return { new:newName, attr: attr }
+  return { new: newName, attr: attr }
 }
 
 var Root = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"iris-ba"}},[_c('h1',[_vm._v("Hello World ! "+_vm._s(_vm.version))]),_c('div',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.componentName),expression:"componentName"}],attrs:{"type":"text"},domProps:{"value":_vm._s(_vm.componentName)},on:{"input":function($event){if($event.target.composing){ return; }_vm.componentName=$event.target.value;}}}),_c('hr'),_c('textarea',{directives:[{name:"model",rawName:"v-model",value:(_vm.template),expression:"template"}],staticStyle:{"width":"100%"},attrs:{"rows":"10"},domProps:{"value":_vm._s(_vm.template)},on:{"input":function($event){if($event.target.composing){ return; }_vm.template=$event.target.value;}}}),_c('hr'),_c('textarea',{directives:[{name:"model",rawName:"v-model",value:(_vm.patchedTemplate),expression:"patchedTemplate"}],staticStyle:{"width":"100%"},attrs:{"readonly":"readonly","rows":"10"},domProps:{"value":_vm._s(_vm.patchedTemplate)},on:{"input":function($event){if($event.target.composing){ return; }_vm.patchedTemplate=$event.target.value;}}}),_c('hr'),_c('h2',[_vm._v(_vm._s(_vm.componentName))]),_c(_vm.componentNameToUse,{tag:"component"}),_c('hr'),_vm._v("I:"+_vm._s(_vm.iris.version)),_c('br')],1)])},staticRenderFns: [],
@@ -8259,7 +8261,7 @@ var Iris = function Iris(options) {
   }
 };
 var prototypeAccessors = { $vuePageApp: {} };
-Iris.prototype.rewriteTemplate = function rewriteTemplate$1 (){
+Iris.rewriteTemplate = function rewriteTemplate$1 (){
     var args = [], len = arguments.length;
     while ( len-- ) args[ len ] = arguments[ len ];
   return rewriteTemplate.apply(void 0, args)

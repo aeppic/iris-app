@@ -1,8 +1,6 @@
-var jsdom =require('jsdom')
+/* eslint-disable no-console */
 
+const Iris = require('../..')
 
-var Iris = require('../..')
-
-console.log(Iris)
-
-
+const rewrittenTemplate = Iris.rewriteTemplate('<div rs-fullscreen rs-model="" rs-bind:field="dsd" rs-test="test"><test as="some">some content</test></div>')
+console.log(rewrittenTemplate)

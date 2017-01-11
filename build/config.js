@@ -30,7 +30,6 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.js'),
     format: 'umd',
     env: 'development',
-    sourceMap: true,
     banner,
   },
   'web-prod': {
@@ -38,7 +37,6 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
     format: 'umd',
     env: 'production',
-    sourceMap: true,
     banner
   },
   // Main build CommonJS build (CommonJS)
@@ -47,7 +45,6 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.common.js'),
     format: 'cjs',
     env: 'development',
-    sourceMap: true,
     banner
   },
   'web-full-cjs-prod': {
@@ -55,24 +52,44 @@ const builds = {
     dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
     format: 'cjs',
     env: 'production',
-    sourceMap: true,
     banner
-  }
+  },
+  // 'no_dom-full-cjs': {
+  //   entry: path.resolve(__dirname, '../src/index.js'),
+  //   dest: path.resolve(__dirname, '../dist/iris-ba.no_dom.common.js'),
+  //   format: 'cjs',
+  //   env: 'development',
+  //   banner,
+  //   dom: false
+  // },
+  // 'no_dom-full-cjs-prod': {
+  //   entry: path.resolve(__dirname, '../src/index.js'),
+  //   dest: path.resolve(__dirname, '../dist/iris-ba.no_dom.common.min.js'),
+  //   format: 'cjs',
+  //   env: 'production',
+  //   banner,
+  //   dom: false
+  // }
 }
 
 function genConfig (opts) {
-  
+
+  const aliases = [
+    require('./alias'),
+    opts.alias
+  ]
+ 
   const config = {
     entry: opts.entry,
     dest: opts.dest,
     external:  opts.external,
     format: opts.format,
     banner: opts.banner,
-    sourceMap: opts.sourceMap,
+    sourceMap: opts.sourceMap!=null ? opts.sourceMap : true,
     moduleName: 'Iris',
     plugins: [
       commonjs({ include: 'node_modules/**' }),
-      alias(Object.assign({}, require('./alias'), opts.alias)),
+      alias(Object.assign({}, ...aliases)),
       nodeResolve({ jsnext: true, main: true, browser:true }),
       vue(),
       flow(),
@@ -83,12 +100,24 @@ function genConfig (opts) {
     ]
   }
 
-  if (opts.env) {
-    config.plugins.push(replace({
-      'IRIS_BA_VERSION': '"'+version+'"',
-      'process.env.NODE_ENV': JSON.stringify(opts.env)
-    }))
+  const replacements = {
+    'IRIS_BA_VERSION': '"'+version+'"',
+    'HAS_DOM': opts.dom===false ? false:true 
   }
+
+  if (opts.env) {
+    replacements['process.env.NODE_ENV'] = JSON.stringify(opts.env)
+  }
+
+  // if(opts.dom === false){
+  //   // aliases.push(require('./no_dom-alias'))
+  //   replacements['window'] = JSON.stringify({ document: {}, navigator: {} })
+  //   replacements['document'] = JSON.stringify({ body: {} })
+  //   replacements['getComputedStyle'] = '(function(){})'
+  //   replacements['Zepto'] = '(function(){})'
+  // }
+
+  config.plugins.push(replace(replacements))
 
   return config
 }
