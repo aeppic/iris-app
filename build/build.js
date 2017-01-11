@@ -57,6 +57,7 @@ function buildEntry (config) {
           screw_ie8: true,
           ascii_only: true
         },
+        comments: 'some',
         compress: {
           pure_funcs: ['makeMap']
         },
@@ -77,12 +78,19 @@ function buildEntry (config) {
       return Promise.all(ops)
     } else {
 
-      if(config.sourceMap){
-        result.code += '\n//# sourceMappingURL=' + path.basename(config.dest) + '.map'
-        ops.push( write(config.dest + '.map', result.map.toString() ) )
+      if(config.sourceMap) {
+        
+        const embeddedSourceMap = true // Should emit both js files with and without embedded map
+
+        if(embeddedSourceMap) {
+          result.code += '\n//# sourceMappingURL=' + result.map.toUrl()
+        } else {
+          result.code += '\n//# sourceMappingURL=' + path.basename(config.dest) + '.map'
+          ops.push( write(config.dest + '.map', result.map.toString() ) )
+        }
       }
       
-      ops.push( write(config.dest, code) )
+      ops.push( write(config.dest, result.code) )
     
       return Promise.all(ops)
     }

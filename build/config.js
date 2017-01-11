@@ -7,11 +7,15 @@ const cleanup = require('rollup-plugin-cleanup')
 const vue = require('rollup-plugin-vue')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const json = require('rollup-plugin-json')
+
 
 const version = process.env.VERSION || require('../package.json').version
 
 const banner =
-  '/*!\n' +
+  '/**\n' + 
+  ' * @license Commercial\n' +
+  ' * \n' +
   ' * iris-ba v' + version + '\n' +
   ' * (c) 2016-' + new Date().getFullYear() + ' curasystems GmbH\n' +
   ' * Commercial License. \n' +
@@ -53,7 +57,7 @@ const builds = {
     format: 'cjs',
     env: 'production',
     banner
-  },
+  }
   // 'no_dom-full-cjs': {
   //   entry: path.resolve(__dirname, '../src/index.js'),
   //   dest: path.resolve(__dirname, '../dist/iris-ba.no_dom.common.js'),
@@ -87,7 +91,9 @@ function genConfig (opts) {
     banner: opts.banner,
     sourceMap: opts.sourceMap!=null ? opts.sourceMap : true,
     moduleName: 'Iris',
+    external: [ 'fs','path' ],
     plugins: [
+      json(),
       commonjs({ include: 'node_modules/**' }),
       alias(Object.assign({}, ...aliases)),
       nodeResolve({ jsnext: true, main: true, browser:true }),
