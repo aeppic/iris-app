@@ -8,6 +8,8 @@ import registerForms from './registration/forms'
 
 import rewriteTemplate from './templating/rewrite'
 
+import 'loadjs'
+
 class Iris {
 
   constructor(options) {
