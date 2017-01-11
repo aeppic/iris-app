@@ -8,7 +8,7 @@
   "module": "dist/iris-ba.common.js",
   "scripts": {
     "dev": "node demo/server",
-    "build": "rimraf dist && node build/build.js",
+    "build": "rimraf dist/* && node build/build.js",
     "lint": "eslint src build test",
     "flow": "flow check",
     "start": "cross-env NODE_ENV=production node demo/server.js "

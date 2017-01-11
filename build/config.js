@@ -105,7 +105,8 @@ function genConfig (opts) {
 
   const replacements = {
     'IRIS_BA_VERSION': '"'+version+'"',
-    'HAS_DOM': opts.dom===false ? false:true 
+    'HAS_DOM': opts.dom===false ? false:true,
+    'loadjs=': 'window.loadjs='
   }
 
   if (opts.env) {
