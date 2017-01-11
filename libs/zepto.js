@@ -1,6 +1,9 @@
 /* dont run when no DOM */
-if( typeof window === 'undefined' )
-  return
+  (function(){
+    if( typeof window === 'undefined' )
+      return
+    var global = window
+
 
 /* Zepto v1.2.0 - zepto event ajax form ie - zeptojs.com/license */
 (function(global, factory) {
@@ -1652,3 +1655,5 @@ window.$ === undefined && (window.$ = Zepto)
 })()
   return Zepto
 }))
+
+  })()

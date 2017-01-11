@@ -5,5 +5,5 @@ const vueVersion = isProd ? 'vue.common.min.js' : 'vue.common.js'
 
 module.exports = {
   'vue': path.resolve(__dirname, `../node_modules/vue/dist/${vueVersion}`),
-  'zepto': path.resolve(__dirname, `../libs/zepto.min.js`)
+  // 'zepto': path.resolve(__dirname, `../libs/zepto.js`)
 }
