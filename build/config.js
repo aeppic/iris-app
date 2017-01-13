@@ -7,8 +7,6 @@ const cleanup = require('rollup-plugin-cleanup')
 const vue = require('rollup-plugin-vue')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
-const json = require('rollup-plugin-json')
-
 
 const version = process.env.VERSION || require('../package.json').version
 
@@ -93,7 +91,6 @@ function genConfig (opts) {
     moduleName: 'Iris',
     external: [ 'fs','path' ],
     plugins: [
-      json(),
       commonjs({ include: 'node_modules/**' }),
       alias(Object.assign({}, ...aliases)),
       nodeResolve({ jsnext: true, main: true, browser:true }),
