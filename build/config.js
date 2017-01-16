@@ -55,6 +55,13 @@ const builds = {
     format: 'cjs',
     env: 'production',
     banner
+  },
+  'web-test': {
+    // entry: path.resolve(__dirname, '../src/index.js'),
+    // dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
+    format: 'iife',
+    sourceMap: 'inline',
+    env: 'development'
   }
   // 'no_dom-full-cjs': {
   //   entry: path.resolve(__dirname, '../src/index.js'),
@@ -91,7 +98,7 @@ function genConfig (opts) {
     moduleName: 'Iris',
     external: [ 'fs','path' ],
     plugins: [
-      commonjs({ include: 'node_modules/**' }),
+      commonjs({ include: 'node_modules/**', ignoreGlobal:true }),
       alias(Object.assign({}, ...aliases)),
       nodeResolve({ jsnext: true, main: true, browser:true }),
       vue(),
