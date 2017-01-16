@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta name="theme-color" content="#3498db">
     <link rel="preload" href="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated" as="script">
-    <link rel="preload" href="iris-ba.min.js" as="script">
+    <link rel="preload" href="../dist/iris-ba.min.js" as="script">
+    <link rel="prefetch" href="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated">
+    <link rel="prefetch" href="../dist/iris-ba.min.js">
   </head>
   <body>
     <div id="iris">
@@ -15,12 +17,21 @@
     </div>
 
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&amp;flags=gated"></script>
-    <script src="iris-ba.min.js"></script>
+    <script src="../dist/iris-ba.min.js"></script>
     <script>
       var iris = new Iris({
         el: '#iris',
+        document: {
+          id: 'dummy',
+          v: 1,
+          f: { id: 'form1', v: 1 },
+          data: { name: 'Dummy Name' }
+        },
+        documents: {
+
+        },
         components: {
-          controls:[
+          controls: [
               {
                 __document: {
                   id: 'one',
