@@ -11,7 +11,9 @@
     "build": "rimraf dist/* && node build/build.js",
     "lint": "eslint src build test",
     "flow": "flow check",
-    "start": "cross-env NODE_ENV=production node demo/server.js "
+    "start": "cross-env NODE_ENV=production node demo/server.js",
+    "test": "karma start karma.conf.js",
+    "test:watch": "karma start --auto-watch karma.conf.js"
   },
   "files": [
     "dist",
@@ -46,6 +48,12 @@
     "file-loader": "^0.9.0",
     "flow-bin": "^0.37.4",
     "jsdom": "^9.9.1",
+    "karma": "^1.4.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-mocha": "^1.3.0",
+    "karma-rollup-plugin": "^0.2.4",
+    "karma-sinon": "^1.0.5",
     "loadjs": "^3.3.1",
     "lodash-es": "^4.17.4",
     "map-stream": "0.0.6",
