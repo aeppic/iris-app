@@ -64,3 +64,13 @@ are already a number of those around.
 ## Background
 
 In progress :) We are currently moving this over from our internal system. This will take a few weeks ...
+
+
+## Initialization
+
+- load core (only rs-*,template rewriter)
+- route mode -> find layout and document
+- render main component (layout || form) 
+- load document
+- store document in local store
+- build document class around raw document

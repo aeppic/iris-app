@@ -89,11 +89,10 @@ function genConfig (opts) {
     banner: opts.banner,
     sourceMap: opts.sourceMap!=null ? opts.sourceMap : true,
     moduleName: 'Iris',
-    external: [ 'fs','path' ],
     plugins: [
       commonjs({ include: 'node_modules/**' }),
       alias(Object.assign({}, ...aliases)),
-      nodeResolve({ jsnext: true, main: true, browser:true }),
+      nodeResolve({ jsnext: true, main: true, browser:true, preferBuiltins:true }),
       vue(),
       flow(),
       buble({

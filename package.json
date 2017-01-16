@@ -32,6 +32,7 @@
     "buble": "^0.14.3",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
+    "dataloader": "^1.2.0",
     "es6-promise": "^4.0.5",
     "eslint": "^3.10.1",
     "eslint-config-airbnb-base": "^11.0.0",
@@ -46,7 +47,10 @@
     "flow-bin": "^0.37.4",
     "jsdom": "^9.9.1",
     "loadjs": "^3.3.1",
+    "lodash-es": "^4.17.4",
     "map-stream": "0.0.6",
+    "minibus": "^3.1.0",
+    "mocha": "^3.2.0",
     "rimraf": "^2.5.4",
     "rollup": "^0.40.0",
     "rollup-plugin-alias": "^1.2.0",
@@ -67,6 +71,7 @@
     "zepto": "^1.2.0"
   },
   "dependencies": {
-    "jsdom": "^9.9.1"
+    "jsdom": "^9.9.1",
+    "postal": "^2.0.5"
   }
 }

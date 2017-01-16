@@ -44,13 +44,13 @@
         this.loading = true
       },
     },
+    created() {
+      this.load()
+    },
     watch: {
       documentId: function(){
         this.load()
       }
-    },
-    created() {
-      this.load()
     },
     render: function(createElement) {
       return createElement('div', {class:'rs-get'},this.$scopedSlots.default( this.loadedDocument ) )

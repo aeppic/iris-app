@@ -9,6 +9,8 @@ import registerForms from './registration/forms'
 import rewriteTemplate from './templating/rewrite'
 
 import 'loadjs'
+import Minibus from  'minibus'
+import Dataloader from 'dataloader'
 
 class Iris {
 
@@ -29,6 +31,8 @@ class Iris {
     if (ui) {
       initUI(this)
     }
+
+    this._bus = Minibus.create()
   }
 
   static rewriteTemplate(...args){
@@ -101,6 +105,7 @@ function registerComponents(iris, components, vue) {
     registerForms(iris, components.forms, vue)
   }
 }
+
 /* eslint-enable  */
 
 export default Iris
