@@ -13,7 +13,7 @@
     "flow": "flow check",
     "start": "cross-env NODE_ENV=production node demo/server.js",
     "test": "karma start karma.conf.js",
-    "test:watch": "karma start --auto-watch karma.conf.js"
+    "test:watch": "karma start karma-watch.conf.js"
   },
   "files": [
     "dist",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "autoprefixer": "^6.6.1",
     "buble": "^0.14.3",
+    "chai": "^3.5.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.26.1",
     "dataloader": "^1.2.0",
@@ -71,6 +72,7 @@
     "rollup-plugin-replace": "^1.1.0",
     "rollup-plugin-vue": "^2.2.14",
     "rollup-watch": "^2.5.0",
+    "sinon": "^1.17.7",
     "stream-to-string": "^1.1.0",
     "string-to-stream": "^1.1.0",
     "vinyl-fs": "^2.4.4",

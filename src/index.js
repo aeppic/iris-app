@@ -10,7 +10,15 @@ import rewriteTemplate from './templating/rewrite'
 
 import 'loadjs'
 import Minibus from  'minibus'
-import Dataloader from 'dataloader'
+
+import defaultsDeep from 'lodash-es/defaultsDeep.js'
+
+const DEFAULT_OPTIONS = {
+  components: {
+    controls: [],
+    forms: []
+  }
+}
 
 class Iris {
 
@@ -21,12 +29,13 @@ class Iris {
     this.controls = {}
     this.forms = {}
 
-    this._options = options
-    this._store = options.store || new Store()
+    this._options = defaultsDeep({},options||{},DEFAULT_OPTIONS)
+
+    this._store = this._options.store || new Store()
     
     exposePropertiesFromObject(this, this._store, 'get,getHistoricDocument,watch,search,subscribe,query')
 
-    const ui = (options.components || options.el || options.ui)
+    const ui = (this._options.components || this._options.el || this._options.ui)
 
     if (ui) {
       initUI(this)
@@ -35,7 +44,7 @@ class Iris {
     this._bus = Minibus.create()
   }
 
-  static rewriteTemplate(...args){
+  static rewriteTemplate(...args) {
     return rewriteTemplate(...args)
   }
 
