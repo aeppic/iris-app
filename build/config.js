@@ -7,6 +7,11 @@ const cleanup = require('rollup-plugin-cleanup')
 const vue = require('rollup-plugin-vue')
 const nodeResolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
+const nodeBuiltins = require('rollup-plugin-node-builtins')
+const nodeGlobals = require('rollup-plugin-node-globals')
+
+// const npm = require('rollup-plugin-npm')
+// console.log(npm)
 
 const version = process.env.VERSION || require('../package.json').version
 
@@ -97,9 +102,11 @@ function genConfig (opts) {
     sourceMap: opts.sourceMap!=null ? opts.sourceMap : true,
     moduleName: 'Iris',
     plugins: [
-      commonjs({ include: 'node_modules/**', ignoreGlobal:true }),
-      alias(Object.assign({}, ...aliases)),
       nodeResolve({ jsnext: true, main: true, browser:true, preferBuiltins:true }),
+      commonjs({ include: 'node_modules/**' }),
+      nodeGlobals(),
+      // nodeBuiltins(),
+      alias(Object.assign({}, ...aliases)),
       vue(),
       flow(),
       buble({
