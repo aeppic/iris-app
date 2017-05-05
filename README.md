@@ -1,6 +1,6 @@
 # IRA
 
-Note: This is work-in-progress we are still building this up
+Note: This is work-in-progress we are still building this up. The public beta release will be with version 3.1 this summer. 
 
 ## Intro
 
