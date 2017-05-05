@@ -1,11 +1,11 @@
 {
-  "name": "ira",
+  "name": "iris-app",
   "version": "3.0.0",
   "description": "Iris Applications",
   "main": "index.js",
-  "browser": "dist/ira.min.js",
-  "jsmain": "dist/ira.js",
-  "module": "dist/ira.common.js",
+  "browser": "dist/iris-app.min.js",
+  "jsmain": "dist/iris-app.js",
+  "module": "dist/iris-app.common.js",
   "scripts": {
     "dev": "node demo/server",
     "build": "rimraf dist/* && node build/build.js",

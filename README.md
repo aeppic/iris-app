@@ -60,8 +60,13 @@ The few forms that are constantly being used and where the default look doesn't 
 after the fact by an actual HTML designer or developer. More importantly though during the design phase the 
 
 That said we are not totally opposed to it and if we find a good way to ensure a nice design experience without
-overloading it we might do it one day but current day form designers often become a poor mans html designer tool and there
+overloading it, we might do it one day but current day form designers often become a poor mans html designer tool and there
 are already a number of those around.
+
+Q: What else can Iris do ?
+
+A: Forms are a requirement to get data into IRIS, either manually filled out or by code, but presenting this data, especially
+the most important data a user interacts with daily is done via designs,lists and layouts.
 
 ## Background
 
