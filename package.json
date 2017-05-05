@@ -1,11 +1,11 @@
 {
-  "name": "iris-ba",
-  "version": "3.0.3",
-  "description": "Iris Business Applications",
+  "name": "ira",
+  "version": "3.0.0",
+  "description": "Iris Applications",
   "main": "index.js",
-  "browser": "dist/iris-ba.min.js",
-  "jsmain": "dist/iris-ba.js",
-  "module": "dist/iris-ba.common.js",
+  "browser": "dist/ira.min.js",
+  "jsmain": "dist/ira.js",
+  "module": "dist/ira.common.js",
   "scripts": {
     "dev": "node demo/server",
     "build": "rimraf dist/* && node build/build.js",
@@ -20,15 +20,24 @@
     "src"
   ],
   "keywords": [
+    "ira",
     "iris",
     "iris BA",
-    "forms"
+    "iris Enterprise",    
+    "forms",
+    "development",
+    "platform",
+    "cloud",
+    "baas",
+    "database",
+    "backoffice",
+    "frontend"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.com/"
   },
   "author": "Matthias Goetzke",
-  "license": "SEE LICENSE ",
+  "license": "SEE LICENSE",
   "devDependencies": {
     "autoprefixer": "^6.6.1",
     "buble": "^0.14.3",

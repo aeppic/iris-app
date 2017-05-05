@@ -1,8 +1,10 @@
+# IRA
+
 Note: This is work-in-progress we are still building this up
 
 ## Intro
 
-IRIS is a way to easily build flexible and high-quality business applications.
+IRA stands for IRIS Application is a way to easily build flexible,scalable and high-quality applications.
 
 It starts by providing the ability to make creating forms extremely easy using an extended
 markdown like syntax we call formdown.
@@ -23,11 +25,10 @@ Rendering a form like this is easy and can be helpful standalone.
 
 Forms are usually used to collect data though and thus by default forms are the basis to create documents.  
 
-
 ## Features
 
-IRIS has been designed as a progressive architecture from small forms on a static webpage to full-fledged enterprise ready
-business applications. The key for us is to allow for different usage levels. Not everybody needs a fully hosted, company
+IRIS has been designed as a progressive architecture from small forms and designs on a static webpage to full-fledged enterprise ready
+business applications. The key is to allow for different usage levels. Not everybody needs a fully hosted, company
 workflow integrated hosted solution with snapshots, staging, history rollback etc. 
 
   * Flexible Forms
@@ -49,13 +50,14 @@ workflow integrated hosted solution with snapshots, staging, history rollback et
 
 Q: Do you have a WYSIWYG form designer ?
 
-A: No. We decided early on to not supply that, since a form definition should be about structural content first.
-Users should concentrate on what they want to capture first and foremost and not too much on how it looks.
+A: No. We decided early on to not supply that yet. A form definition should be about structural content first and
+users should concentrate on what they want to capture first and not too much on how it looks. The rendered forms look
+very nice out ouf the box and can then be styled and influenced using controls. They can also be mixed and matched with
+HTML templates.
 
-The rendered forms look nice enough out ouf the box and can be styled and influenced using controls. Part of becoming
-more productive building business applications though means a good seperation of work and responsibilities. 
-The few forms that are constantly being used and where the default look doesn't suffice can then be easily restyled
-after the fact by an actual HTML designer or developer. 
+Part of becoming more productive building any application means a good seperation of work and responsibilities. 
+The few forms that are constantly being used and where the default look doesn't suffice can easily be restyled
+after the fact by an actual HTML designer or developer. More importantly though during the design phase the 
 
 That said we are not totally opposed to it and if we find a good way to ensure a nice design experience without
 overloading it we might do it one day but current day form designers often become a poor mans html designer tool and there

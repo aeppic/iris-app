@@ -19,29 +19,29 @@ const banner =
   '/**\n' + 
   ' * @license Commercial\n' +
   ' * \n' +
-  ' * iris-ba v' + version + '\n' +
+  ' * ira v' + version + '\n' +
   ' * (c) 2016-' + new Date().getFullYear() + ' curasystems GmbH\n' +
-  ' * Commercial License. \n' +
   ' * \n' +
-  ' * This library must only be used within the context of code \n' +
-  ' * demonstrations (JSFiddle, etc) or with express written consent\n' +
-  ' * by curasystems GmbH.\n' +
+  ' * License AGPL 3.0\n' +
   ' * \n' +
-  ' * See https://github.com/iris-ba/iris-ba/blob/master/LICENSE\n' +
+  ' * In order to remove the restrictions of the AGPL a commercial\n' +
+  ' * license must be obtained from curasystems GmbH\n' +
+  ' * \n' +
+  ' * See https://github.com/ira/ira/blob/master/LICENSE\n' +
   ' */'
 
 const builds = {
   // Main build CommonJS build (CommonJS)
   'web': {
     entry: path.resolve(__dirname, '../src/index.js'),
-    dest: path.resolve(__dirname, '../dist/iris-ba.js'),
+    dest: path.resolve(__dirname, '../dist/ira.js'),
     format: 'umd',
     env: 'development',
     banner,
   },
   'web-prod': {
     entry: path.resolve(__dirname, '../src/index.js'),
-    dest: path.resolve(__dirname, '../dist/iris-ba.min.js'),
+    dest: path.resolve(__dirname, '../dist/ira.min.js'),
     format: 'umd',
     env: 'production',
     banner
@@ -49,28 +49,28 @@ const builds = {
   // Main build CommonJS build (CommonJS)
   'web-full-cjs': {
     entry: path.resolve(__dirname, '../src/index.js'),
-    dest: path.resolve(__dirname, '../dist/iris-ba.common.js'),
+    dest: path.resolve(__dirname, '../dist/ira.common.js'),
     format: 'cjs',
     env: 'development',
     banner
   },
   'web-full-cjs-prod': {
     entry: path.resolve(__dirname, '../src/index.js'),
-    dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
+    dest: path.resolve(__dirname, '../dist/ira.common.min.js'),
     format: 'cjs',
     env: 'production',
     banner
   },
   'web-test': {
     // entry: path.resolve(__dirname, '../src/index.js'),
-    // dest: path.resolve(__dirname, '../dist/iris-ba.common.min.js'),
+    // dest: path.resolve(__dirname, '../dist/ira.webtest.js'),
     format: 'iife',
     sourceMap: 'inline',
     env: 'development'
   }
   // 'no_dom-full-cjs': {
   //   entry: path.resolve(__dirname, '../src/index.js'),
-  //   dest: path.resolve(__dirname, '../dist/iris-ba.no_dom.common.js'),
+  //   dest: path.resolve(__dirname, '../dist/ira.no_dom.common.js'),
   //   format: 'cjs',
   //   env: 'development',
   //   banner,
@@ -78,7 +78,7 @@ const builds = {
   // },
   // 'no_dom-full-cjs-prod': {
   //   entry: path.resolve(__dirname, '../src/index.js'),
-  //   dest: path.resolve(__dirname, '../dist/iris-ba.no_dom.common.min.js'),
+  //   dest: path.resolve(__dirname, '../dist/ira.no_dom.common.min.js'),
   //   format: 'cjs',
   //   env: 'production',
   //   banner,
@@ -143,5 +143,14 @@ if (process.env.TARGET) {
   module.exports = genConfig(builds[process.env.TARGET])
 } else {
   exports.getBuild = name => genConfig(builds[name])
-  exports.getAllBuilds = () => Object.keys(builds).map(name => genConfig(builds[name]))
+  exports.getAllBuilds = () => {
+    var destinationBuilds = {}
+    Object.keys(builds).forEach( (buildName)=>{
+      var build = builds[buildName]
+      if(build.dest){
+        destinationBuilds[buildName] = build
+      }
+    })
+    return Object.keys(destinationBuilds).map(name => genConfig(builds[name]))
+  }
 }
