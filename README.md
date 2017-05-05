@@ -1,10 +1,10 @@
-# IRA
+# IRIS-APP
 
 Note: This is work-in-progress we are still building this up. The public beta release will be with version 3.1 this summer. 
 
 ## Intro
 
-IRA stands for IRIS Application is a way to easily build flexible,scalable and high-quality applications.
+IRIS is the best way to easily build flexible, scalable and high-quality applications.
 
 It starts by providing the ability to make creating forms extremely easy using an extended
 markdown like syntax we call formdown.
